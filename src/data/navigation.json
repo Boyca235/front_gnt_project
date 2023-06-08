@@ -1,0 +1,67 @@
+{
+  "data": [
+    {
+      "id": 1,
+      "linkText": "Accueil",
+      "link":"/",
+      "child": false
+      
+    },
+    {
+      "id": 4,
+      "linkText": "Categories",
+      "child": true,
+      "icon": "angle-down",
+      "submenu": [
+        {
+          "id": 41,
+          "link": "/business",
+          "linkText": "FinTech"
+        },
+        {
+          "id": 42,
+          "link": "/entertainment",
+          "linkText": "Event's & Divers"
+        },
+        {
+          "id": 43,
+          "link": "/features",
+          "linkText": "News tech"
+        },
+        {
+          "id": 44,
+          "link": "/sports",
+          "linkText": "Innovations et startups"
+        },
+        {
+          "id": 45,
+          "link": "/trending",
+          "linkText": "Ecotech et tendances"
+        },
+        {
+          "id": 46,
+          "link": "/technology",
+          "linkText": "Net fakenews"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "linkText": "Monde",
+      "link": "/trending",
+      "child": false
+    },
+    {
+      "id": 6,
+      "linkText": "Innovations et startups",
+      "link": "/sports",
+      "child": false
+    },
+    {
+      "id": 7,
+      "linkText": "Contact",
+      "link": "/contact",
+      "child": false
+    }
+  ]
+}
