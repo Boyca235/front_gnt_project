@@ -1,13 +1,14 @@
 import Link from 'next/link';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Slider from 'react-slick';
 import ModalVideo from 'react-modal-video';
+import axios from 'axios';
 
 const postData = [
   {
     postThumb: '/images/play-post-1.jpg',
     postThumbDark: '/images/play-post-dark-1.jpg',
-    postCategory: 'TECHNOLOGY',
+    postCategory: 'TECHNOLOGY001',
     postDate: 'March 26, 2020',
     postTitle: 'There\'s no crime than not doing but argue',
   },
@@ -74,6 +75,19 @@ export default function TwoPostCarousel({ dark, customClass }) {
       },
     ],
   };
+  const [trendindData, setPublications] = useState([])
+  useEffect(() => {
+    fectchPublication()
+  }, [])
+  const fectchPublication = async () => {
+    try {
+      await axios.get(`/publishment/list/filtred/Trending/5`).then(({ data }) => {
+        setPublications(data)
+      })
+    } catch (error) {
+      console.log("Y'a une erreur : " + error)
+    }
+  }
   return (
     <section
       className={`single-play-post-area mt-10 ${customClass} ${
@@ -83,26 +97,26 @@ export default function TwoPostCarousel({ dark, customClass }) {
       <div className="container custom-container">
         <div className="single-play-box">
           <Slider {...settings} className="row single-play-post-slider">
-            {postData.map((item, i) => (
+            {trendindData.map((item, i) => (
               <div className="col" key={i + 1}>
                 <div className="single-play-post-item">
                   {dark ? (
-                    <img src={item.postThumbDark} alt="play" />
+                    <img src="/images/play-post-1.jpg" alt="play"/>
                   ) : (
-                    <img src={item.postThumb} alt="play" />
+                    <img src="/images/play-post-2.jpg" alt="play"/>
                   )}
 
                   <div className="single-play-post-content">
                     <div className="post-meta">
                       <div className="meta-categories">
-                        <a href="#">{item.postCategory}</a>
+                        <a href="#">{item.category.category_name.toUpperCase()}</a>
                       </div>
                       <div className="meta-date">
-                        <span>{item.postDate}</span>
+                        <span>{item.created_at}</span>
                       </div>
                     </div>
                     <h3 className="title">
-                      <Link href="/post-details-two">{item.postTitle}</Link>
+                      <Link href="/post-details-two">{item.title && item.title.length > 50 ? item.title.substring(0,50) + "..." : item.title}</Link>
                     </h3>
                   </div>
                   <div className="play-btn">

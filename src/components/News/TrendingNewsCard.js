@@ -18,7 +18,7 @@ export default function TrendingNewsCard() {
             <div className="post-meta">
               <div className="meta-categories">
                 <Link href="/post-details-one" tabIndex="-1">
-                  TECHNOLOGY
+                  TECHNOLOGY120
                 </Link>
               </div>
               <div className="meta-date">

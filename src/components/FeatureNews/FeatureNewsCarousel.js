@@ -1,5 +1,6 @@
+import axios from 'axios';
 import Link from 'next/link';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Slider from 'react-slick';
 
 const postData = [
@@ -98,6 +99,20 @@ export default function FeatureNewsCarousel({ customClass, dark }) {
       },
     ],
   };
+  const [listData, setData] = useState([])
+  useEffect(() => {
+    fectchPublication()
+  }, [])
+
+  const fectchPublication = async () => {
+    try {
+      await axios.get(`/publishment/list`).then(({ data }) => {
+        setData(data)
+      })
+    } catch (error) {
+      console.log("Y'a une erreur : " + error)
+    }
+  }
   return (
     <section className={`feature-area ${customClass}`}>
       <div className="container">
@@ -109,19 +124,19 @@ export default function FeatureNewsCarousel({ customClass, dark }) {
           </div>
         </div>
         <Slider className="row feature-post-slider" {...settings}>
-          {postData.map((item, i) => (
+          {listData.map((item, i) => (
             <div className="col" key={i + 1}>
               <div className="feature-post">
                 <div className="feature-post-thumb">
                   {dark ? (
                     <img
-                      src={item.postThumbDark}
+                      src="/images/feature-dark-2.jpg"
                       className="img-fluid"
                       alt="feature"
                     />
                   ) : (
                     <img
-                      src={item.postThumb}
+                      src="/images/feature-2.jpg"
                       className="img-fluid"
                       alt="feature"
                     />
@@ -130,14 +145,14 @@ export default function FeatureNewsCarousel({ customClass, dark }) {
                 <div className="feature-post-content">
                   <div className="post-meta">
                     <div className="meta-categories">
-                      <Link href="/post-details-two">{item.postTag}</Link>
+                      <Link href="/post-details-two">{item.category.category_name.toUpperCase()}</Link>
                     </div>
                     <div className="meta-date">
-                      <span>{item.postDate}</span>
+                      <span>{item.created_at}</span>
                     </div>
                   </div>
                   <h4 className="title">
-                    <Link href="/post-details-two">{item.postTitle}</Link>
+                    <Link href="/post-details-two">{item.title && item.title.length > 50 ? item.title.substring(0,47) + "..." : item.title}</Link>
                   </h4>
                 </div>
               </div>

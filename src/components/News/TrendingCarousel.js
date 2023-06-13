@@ -1,5 +1,6 @@
+import axios from 'axios';
 import Link from 'next/link';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Slider from 'react-slick';
 function PrevArrow(props) {
   const { onClick } = props;
@@ -59,9 +60,24 @@ export default function TrendingCarousel({ dark }) {
       },
     ],
   };
+  const [trendindData, setPublications] = useState([])
+  useEffect(() => {
+    fectchPublication()
+  }, [])
+
+  const fectchPublication = async () => {
+    try {
+      await axios.get(`/publishment/list`).then(({ data }) => {
+        setPublications(data)
+      })
+    } catch (error) {
+      console.log("Y'a une erreur : " + error)
+    }
+  }
   return (
     <Slider {...settings} className="row trending-news-slider">
-      <div className="col">
+      {trendindData.map((item, i) => (
+      <div className="col" key={i + 1}>
         <div
           className={`trending-news-item ${
             dark ? 'trending-news-item-dark' : ''
@@ -78,25 +94,25 @@ export default function TrendingCarousel({ dark }) {
           <div className="trending-news-content">
             <div className="post-meta">
               <div className="meta-categories">
-                <Link href="/post-details-three">TECHNOLOGIE</Link>
+                <Link href="/post-details-three">{item.category.category_name.toUpperCase()}</Link>
               </div>
               <div className="meta-date">
-                <span>March 26, 2020</span>
+                <span>{item.created_at}</span>
               </div>
             </div>
             <h3 className="title">
               <Link href="/post-details-three">
-                There may be no consoles in the future ea exec says today
+                {item.title && item.title.length > 57 ? item.title.substring(0,54) + "..." : item.title}
               </Link>
             </h3>
             <p className="text">
-              The property, complete with 30-seat screening from room, a
-              100-seat amphitheater and a swimming pond with sandy shower…
+              {item.title && item.title.length > 120 ? item.title.substring(0,120) + "..." : item.title}
             </p>
           </div>
         </div>
       </div>
-      <div className="col">
+      ))}
+      {/* <div className="col">
         <div
           className={`trending-news-item ${
             dark ? 'trending-news-item-dark' : ''
@@ -167,7 +183,7 @@ export default function TrendingCarousel({ dark }) {
             </p>
           </div>
         </div>
-      </div>
+      </div> */}
     </Slider>
   );
 }

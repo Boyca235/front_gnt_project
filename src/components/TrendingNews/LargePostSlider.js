@@ -47,7 +47,7 @@ export default function LargePostSlider() {
         <div className="trending-image-content">
           <div className="post-meta">
             <div className="meta-categories">
-              <Link href="/post-details-two">TECHNOLOGIE</Link>
+              <Link href="/post-details-two">TECHNOLOGIE1</Link>
             </div>
             <div className="meta-date">
               <span>March 26, 2020</span>

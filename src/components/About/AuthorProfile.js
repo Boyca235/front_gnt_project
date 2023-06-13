@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import React from 'react';
 
 export default function AuthorProfile() {
@@ -10,10 +11,10 @@ export default function AuthorProfile() {
               <nav aria-label="breadcrumb">
                 <ol className="breadcrumb">
                   <li className="breadcrumb-item">
-                    <a href="/">Home</a>
+                    <Link href="/">Home</Link>
                   </li>
                   <li className="breadcrumb-item">
-                    <a href="#">Author</a>
+                    <Link href="#">Author</Link>
                   </li>
                   <li className="breadcrumb-item active" aria-current="page">
                     Subash Chandra

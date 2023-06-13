@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import React from 'react';
 
 export default function BreadCrumb({ CategoryName }) {
@@ -6,10 +7,10 @@ export default function BreadCrumb({ CategoryName }) {
       <nav aria-label="breadcrumb">
         <ol className="breadcrumb">
           <li className="breadcrumb-item">
-            <a href="/">Accueil</a>
+            <Link href="/">Accueil</Link>
           </li>
           <li className="breadcrumb-item">
-            <a href="#">Categorie</a>
+            <Link href="#">Categorie</Link>
           </li>
           <li className="breadcrumb-item active" aria-current="page">
             {CategoryName}
